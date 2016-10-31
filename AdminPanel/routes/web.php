@@ -12,5 +12,16 @@
 */
 
 Route::get('/', function () {
+    if (Auth::check())
+        return redirect('/videos');
+    else
+        return redirect('/login');
+});
+
+Route::get('/login', function() {
     return view('welcome');
+});
+
+Route::get('/videos', function() {
+    return view('videos');
 });
