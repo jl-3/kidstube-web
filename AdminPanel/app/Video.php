@@ -2,20 +2,17 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class Video extends Model
 {
-    use Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'active'
+        'url', 'code', 'author'
     ];
 
     /**
@@ -24,16 +21,16 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        //
     ];
 
     /**
-     * Returns the list of all the videos added by the author
+     * Returns the author who added video to the KidsTube
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function videos()
+    public function author()
     {
-        return $this->hasMany(Video::class);
+        return $this->belongsTo(User::class);
     }
 }

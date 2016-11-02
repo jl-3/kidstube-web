@@ -11,21 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    if (Auth::check())
-        return redirect('/videos');
-    else
-        return redirect('/login');
-});
-
-Route::get('/login', function() {
-    return view('login');
-});
-
-Route::get('/videos', function() {
-    return view('videos');
-});
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::post('/video', 'VideoController@postVideo');
