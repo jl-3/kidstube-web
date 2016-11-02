@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Video extends Model
+class Category extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,7 +12,7 @@ class Video extends Model
      * @var array
      */
     protected $fillable = [
-        'url', 'code', 'user_id'
+        'name', 'user_id'
     ];
 
     /**
@@ -25,22 +25,22 @@ class Video extends Model
     ];
 
     /**
-     * Returns the author who added video to the KidsTube
+     * Returns the author who created this video category on the KidsTube
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function author()
+    public function createdBy()
     {
         return $this->belongsTo(User::class);
     }
 
     /**
-     * Returns all the categories of the specified video
+     * Returns all the videos in the specified category
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function categories()
+    public function videos()
     {
-        return $this->belongsToMany(Category::class, 'video_categories');
+        return $this->belongsToMany(Video::class, 'video_categories');
     }
 }

@@ -34,7 +34,7 @@ class VideoController extends Controller
         Video::create([
             'url' => $url,
             'code' => $code,
-            'author' => Auth::user()->id,
+            'user_id' => Auth::user()->id,
         ]);
 
         return redirect('/home');

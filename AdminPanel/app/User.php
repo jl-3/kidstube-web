@@ -28,12 +28,22 @@ class User extends Authenticatable
     ];
 
     /**
-     * Returns the list of all the videos added by the author
+     * Returns the list of all the videos added by the user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function videos()
     {
         return $this->hasMany(Video::class);
+    }
+
+    /**
+     * Returns the list of all the categories added by the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
     }
 }

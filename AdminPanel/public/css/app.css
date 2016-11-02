@@ -5766,4 +5766,9 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
+.panel-footer-pagination {
+  text-align: center; }
+  .panel-footer-pagination ul.pagination {
+    margin: 0; }
+
 /*# sourceMappingURL=app.css.map */
