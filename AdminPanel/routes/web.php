@@ -19,9 +19,13 @@ Route::get('/', function () {
 });
 
 Route::get('/login', function() {
-    return view('welcome');
+    return view('login');
 });
 
 Route::get('/videos', function() {
     return view('videos');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
