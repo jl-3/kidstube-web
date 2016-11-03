@@ -167,6 +167,7 @@ return [
          * Package Service Providers...
          */
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class, // Laravel IDE helper
+        Barryvdh\Debugbar\ServiceProvider::class, // Laravel debug panel
 
         //
 

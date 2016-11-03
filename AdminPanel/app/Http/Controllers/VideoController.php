@@ -6,6 +6,7 @@ use App\Category;
 use App\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class VideoController extends Controller
 {
@@ -20,22 +21,51 @@ class VideoController extends Controller
     }
 
     /**
+     * Show the application dashboard.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $videos = Auth::user()->videos();
+        $cat = $request->input('category');
+        if ($request->has('category')) {
+            $videos->whereExists(function($query) use ($cat) {
+                $query
+                    ->select(DB::raw(1))
+                    ->from('video_categories')
+                    ->whereRaw('video_categories.video_id = videos.id')
+                    ->where('video_categories.category_id', '=', $cat);
+            });
+        }
+        $videos = $videos->orderBy('created_at', 'desc')->paginate(4);
+        $categories = Auth::user()->categories()->orderBy('name')->get();
+        return view('videos', ['videos' => $videos, 'categories' => $categories, 'filter' => $cat]);
+    }
+
+    /**
      * Add a new video to the KidsTube.
      *
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function postVideo(Request $request)
+    public function add(Request $request)
     {
-        $this->validate($request, ['url' => 'required|url|unique:videos']);
+        $this->validate($request, ['url' => 'required|url|unique:videos', 'category' => 'exists:categories,id']);
 
         $url = $request->input('url');
         $code = substr($url, strrpos($url, 'v=') + 2);
-        Video::create([
+        $video = Video::create([
             'url' => $url,
             'code' => $code,
             'user_id' => Auth::user()->id,
         ]);
+
+        if ($request->has('category')) {
+            $category = Category::findOrFail($request->input('category'));
+            $category->videos()->attach($video);
+        }
 
         return redirect()->route('videos');
     }
@@ -47,7 +77,7 @@ class VideoController extends Controller
      * @param Video $video
      * @return \Illuminate\Http\Response
      */
-    public function deleteVideo(Request $request, Video $video)
+    public function remove(Request $request, Video $video)
     {
         $video->delete();
         return redirect()->route('videos');

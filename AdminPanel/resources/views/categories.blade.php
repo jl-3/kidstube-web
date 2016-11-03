@@ -33,6 +33,30 @@
 
                     <div class="panel-body">
                         @forelse($categories as $category)
+                            <div class="row">
+                                <div class="col-xs-10">
+                                    <form action="{{ url('/category/'.$category->id) }}" method="post">
+                                        {{ method_field('PUT') }}
+                                        {{ csrf_field() }}
+                                        <div class="panel panel-default">
+                                            <div class="input-group">
+                                                <input class="form-control" name="name" placeholder="Название"
+                                                       value="{{ $category->name }}">
+                                                <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-default">Изменить</button>
+                                        </span>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-xs-2">
+                                    <form action="{{ url('/category/'.$category->id) }}" method="post">
+                                        {{ method_field('DELETE') }}
+                                        {{ csrf_field() }}
+                                        <button type="submit" class="btn btn-danger">Удалить</button>
+                                    </form>
+                                </div>
+                            </div>
                         @empty
                             <div class="alert alert-success">
                                 У вас пока нет ни одной категории.

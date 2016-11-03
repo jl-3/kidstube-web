@@ -45,9 +45,8 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     @if (Auth::check())
-                        <li class="{{ $view_name == 'home' ? 'active' : '' }}"><a href="{{ url('/home') }}">Видео</a></li>
+                        <li class="{{ $view_name == 'videos' ? 'active' : '' }}"><a href="{{ url('/videos') }}">Видео</a></li>
                         <li class="{{ $view_name == 'categories' ? 'active': '' }}"><a href="{{ url('/categories') }}">Категории</a></li>
-                        <li class="{{ $view_name == 'history' ? 'active': '' }}"><a href="{{ url('/history') }}">История просмотров</a></li>
                     @else
                         &nbsp;
                     @endif

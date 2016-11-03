@@ -18,6 +18,14 @@
                     <div class="panel-body">
                         <form action="{{ url('/video') }}" method="post">
                             {{ csrf_field() }}
+                            <div class="form-group">
+                                <select class="form-control" name="category">
+                                    <option value="">укажите категорию (не обязательно)</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="input-group">
                                 <input class="form-control" placeholder="URL видео" name="url" required>
                                 <span class="input-group-btn">
@@ -29,7 +37,19 @@
                 </div>
 
                 <div class="panel panel-warning">
-                    <div class="panel-heading">Разрешённые видео</div>
+                    <div class="panel-heading">
+                        Разрешённые видео
+                        <form id="filter-form" action="{{ url('/videos') }}" method="get" class="pull-right">
+                            <select id="filter-category" name="category">
+                                <option value="">- все категории -</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" @if($filter == $category->id) selected @endif>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </form>
+                    </div>
 
                     <div class="panel-body">
                         @forelse($videos as $video)
@@ -93,7 +113,7 @@
                     </div>
 
                     <div class="panel-footer panel-footer-pagination">
-                        {{ $videos->links() }}
+                        {{ $videos->appends(['category' => $filter])->links() }}
                     </div>
                 </div>
             </div>
