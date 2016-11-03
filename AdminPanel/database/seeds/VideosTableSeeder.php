@@ -21,6 +21,10 @@ class VideosTableSeeder extends Seeder
         $video->categories()->attach($smeshariki->id);
         $video = Video::create(['url' => 'https://www.youtube.com/watch?v=COKpq4SyZCQ', 'code' => 'COKpq4SyZCQ', 'user_id' => $testUser->id]);
         $video->categories()->attach($smeshariki->id);
+        $video = Video::create(['url' => 'https://www.youtube.com/watch?v=OtzSlfQ2H08', 'code' => 'OtzSlfQ2H08', 'user_id' => $testUser->id]);
+        $video->categories()->attach($smeshariki->id);
+        $video = Video::create(['url' => 'https://www.youtube.com/watch?v=zi_i2TjVZc4', 'code' => 'zi_i2TjVZc4', 'user_id' => $testUser->id]);
+        $video->categories()->attach($smeshariki->id);
 
         $fiksiki = Category::whereName('Фиксики')->first();
         $video = Video::create(['url' => 'https://www.youtube.com/watch?v=VR9bGnrgR9I', 'code' => 'VR9bGnrgR9I', 'user_id' => $testUser->id]);
