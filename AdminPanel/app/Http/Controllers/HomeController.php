@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Video;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -27,7 +25,7 @@ class HomeController extends Controller
     public function index()
     {
         $videos = Auth::user()->videos()->orderBy('created_at', 'desc')->paginate(4);
-        $categories = Auth::user()->categories()->orderBy('name');
+        $categories = Auth::user()->categories()->orderBy('name')->get();
         return view('home', ['videos' => $videos, 'categories' => $categories]);
     }
 }

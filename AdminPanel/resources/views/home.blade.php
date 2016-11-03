@@ -42,8 +42,8 @@
                                             ></iframe>
                                         </div>
                                         <div class="col-sm-6">
-                                            <form class="form-inline"
-                                                  action="{{ url('/video/'.$video->id.'/category') }}" method="post">
+                                            <form class="form-inline" method="post"
+                                                  action="{{ url('/video/'.$video->id.'/addTo') }}">
                                                 {{ csrf_field() }}
                                                 <table class="table table-hover">
                                                     @foreach($video->categories as $category)
@@ -58,7 +58,7 @@
                                                     @endforeach
                                                     <tr>
                                                         <td>
-                                                            <select class="form-control input-sm">
+                                                            <select class="form-control input-sm" name="category">
                                                                 @foreach($categories as $category)
                                                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                                                 @endforeach
