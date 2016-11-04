@@ -58,7 +58,7 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <iframe type="text/html" width="100%" height="240" frameborder="0"
-                                                    src="http://www.youtube.com/embed/{{ $video->code }}?autoplay=0&origin=http://admin.kidstube.space/"
+                                                    src="http://www.youtube.com/embed/{{ $video->code }}?autoplay=0&playsinline=1&rel=0&showinfo=0&origin=http://admin.kidstube.space/"
                                             ></iframe>
                                         </div>
                                         <div class="col-sm-6">
