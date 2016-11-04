@@ -57,9 +57,14 @@
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <iframe type="text/html" width="100%" height="240" frameborder="0"
+                                            <a href="https://www.youtube.com/watch?v={{ $video->code }}" target="_blank">
+                                                <img src="http://img.youtube.com/vi/{{ $video->code }}/0.jpg" width="100%" height="240">
+                                            </a>
+                                            <!--
+                                            <iframe type="text/html" width="100%" height="240" frameborder="0" allowfullscreen
                                                     src="http://www.youtube.com/embed/{{ $video->code }}?autoplay=0&playsinline=1&rel=0&showinfo=0&origin=http://admin.kidstube.space/"
                                             ></iframe>
+                                            -->
                                         </div>
                                         <div class="col-sm-6">
                                             <form class="form-inline" method="post"
