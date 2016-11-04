@@ -52,10 +52,17 @@ class VideoController extends Controller
      */
     public function add(Request $request)
     {
-        $this->validate($request, ['url' => 'required|url|unique:videos', 'category' => 'exists:categories,id']);
+        $this->validate($request, [
+            'url' => ['required', 'url', 'unique:videos', 'regex:/(youtube.com\/.*v=|youtu.be\/)/'],
+            'category' => 'exists:categories,id'
+        ]);
 
         $url = $request->input('url');
-        $code = substr($url, strrpos($url, 'v=') + 2);
+
+        $code = '';
+        if (preg_match('/youtube.com\/.*v=(.*)$/', $url, $matches)) $code = $matches[1];
+        else if (preg_match('/youtu.be\/(.*)$/', $url, $matches)) $code = $matches[1];
+
         $video = Video::create([
             'url' => $url,
             'code' => $code,

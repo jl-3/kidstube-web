@@ -38,7 +38,6 @@
 
                 <div class="panel panel-warning">
                     <div class="panel-heading">
-                        Разрешённые видео
                         <form id="filter-form" action="{{ url('/videos') }}" method="get" class="pull-right">
                             <select id="filter-category" name="category">
                                 <option value="">- все категории -</option>
@@ -49,6 +48,7 @@
                                 @endforeach
                             </select>
                         </form>
+                        Разрешённые видео
                     </div>
 
                     <div class="panel-body">
