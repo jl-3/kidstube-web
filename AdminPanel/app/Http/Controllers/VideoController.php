@@ -60,8 +60,9 @@ class VideoController extends Controller
         $url = $request->input('url');
 
         $code = '';
-        if (preg_match('/youtube.com\/.*v=(.*)$/', $url, $matches)) $code = $matches[1];
-        else if (preg_match('/youtu.be\/(.*)$/', $url, $matches)) $code = $matches[1];
+        if (preg_match('/youtube.com\/.*v=([a-zA-Z0-9\-_]+)/', $url, $matches)) $code = $matches[1];
+        else if (preg_match('/youtu.be\/([a-zA-Z-9\-_]+)/', $url, $matches)) $code = $matches[1];
+        else die('Incorrect video code');
 
         $video = Video::create([
             'url' => $url,
