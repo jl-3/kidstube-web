@@ -75,7 +75,7 @@
                                                         <tr>
                                                             <td>{{ $category->name }}</td>
                                                             <td>
-                                                                <a class="btn btn-sm btn-danger"
+                                                                <a class="btn btn-sm btn-warning"
                                                                    href="{{ url('/video/'.$video->id.'/removeFrom/'.$category->id) }}"
                                                                 >Убрать</a>
                                                             </td>

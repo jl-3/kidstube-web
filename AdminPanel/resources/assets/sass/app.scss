@@ -1,5 +1,15 @@
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@font-face{
+  font-family:'Glyphicons Halflings';
+  src:url(//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/fonts/glyphicons-halflings-regular.eot);
+  src:url(//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/fonts/glyphicons-halflings-regular.eot?#iefix) format('embedded-opentype'),
+      url(//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/fonts/glyphicons-halflings-regular.woff2) format('woff2'),
+      url(//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/fonts/glyphicons-halflings-regular.woff) format('woff'),
+      url(//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/fonts/glyphicons-halflings-regular.ttf) format('truetype'),
+      url(//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format('svg')
+}
+
 // Variables
 @import "variables";
 // Bootstrap
@@ -11,4 +21,8 @@
   ul.pagination {
     margin: 0;
   }
+}
+
+span.glyphicon {
+  font-family: 'Glyphicons Halflings';
 }

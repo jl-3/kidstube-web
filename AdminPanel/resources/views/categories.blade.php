@@ -34,7 +34,7 @@
                     <div class="panel-body">
                         @forelse($categories as $category)
                             <div class="row">
-                                <div class="col-xs-10">
+                                <div class="col-xs-9 col-sm-10">
                                     <form action="{{ url('/category/'.$category->id) }}" method="post">
                                         {{ method_field('PUT') }}
                                         {{ csrf_field() }}
@@ -43,17 +43,23 @@
                                                 <input class="form-control" name="name" placeholder="Название"
                                                        value="{{ $category->name }}">
                                                 <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-default">Изменить</button>
+                                            <button type="submit" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-pencil hidden-md hidden-lg"></span>
+                                                <span class="visible-md-inline-block visible-lg-inline-block">Изменить</span>
+                                            </button>
                                         </span>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
-                                <div class="col-xs-2">
+                                <div class="col-xs-3 col-sm-2">
                                     <form action="{{ url('/category/'.$category->id) }}" method="post">
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
-                                        <button type="submit" class="btn btn-danger">Удалить</button>
+                                        <button type="submit" class="btn btn-danger">
+                                            <span class="glyphicon glyphicon-trash hidden-md hidden-lg"></span>
+                                            <span class="visible-md-inline-block visible-lg-inline-block">Удалить</span>
+                                        </button>
                                     </form>
                                 </div>
                             </div>

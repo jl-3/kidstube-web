@@ -1,5 +1,10 @@
 @charset "UTF-8";
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url(//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/fonts/glyphicons-halflings-regular.eot);
+  src: url(//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/fonts/glyphicons-halflings-regular.eot?#iefix) format("embedded-opentype"), url(//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/fonts/glyphicons-halflings-regular.woff2) format("woff2"), url(//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/fonts/glyphicons-halflings-regular.woff) format("woff"), url(//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/fonts/glyphicons-halflings-regular.ttf) format("truetype"), url(//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format("svg"); }
+
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.
@@ -5770,5 +5775,8 @@ button.close {
   text-align: center; }
   .panel-footer-pagination ul.pagination {
     margin: 0; }
+
+span.glyphicon {
+  font-family: 'Glyphicons Halflings'; }
 
 /*# sourceMappingURL=app.css.map */
