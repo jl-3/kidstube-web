@@ -5781,8 +5781,13 @@ span.glyphicon {
 
 a.thumbnail {
   background: white; }
-
-a.thumbnail:hover {
-  text-decoration: none; }
+  a.thumbnail:hover {
+    text-decoration: none; }
+  a.thumbnail.active {
+    background: #3097D1; }
+  a.thumbnail .caption {
+    color: #636b6f; }
+  a.thumbnail.active .caption {
+    color: #ffffff; }
 
 /*# sourceMappingURL=app.css.map */

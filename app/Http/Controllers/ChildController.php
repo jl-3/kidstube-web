@@ -40,7 +40,7 @@ class ChildController extends Controller
             });
         }
         $videos = $videos->paginate(config('app.pagination'));
-        $categories = Category::orderBy('name')->get();
+        $categories = Category::whereNotNull('thumbnail')->orderBy('name')->get();
         return view('childVideoList', ['videos' => $videos, 'categories' => $categories, 'filter' => $cat]);
     }
 

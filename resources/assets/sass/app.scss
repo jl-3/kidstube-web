@@ -29,7 +29,16 @@ span.glyphicon {
 
 a.thumbnail {
   background:white;
-}
-a.thumbnail:hover {
-  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+  &.active {
+    background:#3097D1;
+  }
+  .caption {
+    color:#636b6f;
+  }
+  &.active .caption {
+    color:#ffffff;
+  }
 }

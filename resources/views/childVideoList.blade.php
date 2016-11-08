@@ -6,7 +6,7 @@
         <div class="row">
             @forelse($categories as $category)
                 <div class="col-sm-3">
-                    <a class="thumbnail" href="{{ url('/?category='.$category->id) }}">
+                    <a class="thumbnail @if($filter == $category->id) active @endif" href="{{ url('/?category='.$category->id) }}">
                         <img src="{{ $category->thumbnail }}" alt="{{ $category->name }}">
                         <div class="caption">{{ $category->name }}</div>
                     </a>
