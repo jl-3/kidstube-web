@@ -2,6 +2,20 @@
 
 @section('content')
     <div class="container" xmlns="http://www.w3.org/1999/html">
+        <h3>Категории</h3>
+        <div class="row">
+            @forelse($categories as $category)
+                <div class="col-sm-3">
+                    <a class="thumbnail" href="{{ url('/?category='.$category->id) }}">
+                        <img src="{{ $category->thumbnail }}" alt="{{ $category->name }}">
+                        <div class="caption">{{ $category->name }}</div>
+                    </a>
+                </div>
+            @empty
+            @endforelse
+        </div>
+
+        <h3>Видео</h3>
         <div class="row">
             @forelse($videos as $video)
                 <div class="col-sm-3">

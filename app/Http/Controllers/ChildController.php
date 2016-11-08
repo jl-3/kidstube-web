@@ -17,6 +17,17 @@ class ChildController extends Controller
      */
     public function index(Request $request)
     {
+        // small fix: update all the categories that don't have a photo
+        foreach (Category::whereNull('thumbnail')->get() as $category)
+        {
+            $lastVideo = $category->videos()->orderBy('id', 'desc')->first();
+            if ($lastVideo != null) {
+                $category->thumbnail = "http://img.youtube.com/vi/$lastVideo->code/0.jpg";
+                $category->save();
+            }
+        }
+
+        // extract needed videos and categories
         $videos = Video::orderBy('created_at', 'desc');
         $cat = $request->input('category');
         if ($request->has('category')) {

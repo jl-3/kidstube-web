@@ -12,7 +12,7 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'user_id'
+        'name', 'thumbnail', 'user_id'
     ];
 
     /**

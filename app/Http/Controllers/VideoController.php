@@ -73,6 +73,8 @@ class VideoController extends Controller
         if ($request->has('category')) {
             $category = Category::findOrFail($request->input('category'));
             $category->videos()->attach($video);
+            $category->thumbnail = "http://img.youtube.com/vi/$video->code/0.jpg";
+            $category->save();
         }
 
         return redirect()->route('videos');
@@ -102,6 +104,8 @@ class VideoController extends Controller
     {
         $category = Category::findOrFail($request->input('category'));
         $video->categories()->attach($category->id);
+        $category->thumbnail = "http://img.youtube.com/vi/$video->code/0.jpg";
+        $category->save();
         return redirect()->route('videos');
     }
 
@@ -116,6 +120,11 @@ class VideoController extends Controller
     public function removeFromCategory(Request $request, Video $video, Category $category)
     {
         $video->categories()->detach($category->id);
+        $lastVideo = $category->videos()->orderBy('id', 'desc')->first();
+        if ($lastVideo != null) {
+            $category->thumbnail = "http://img.youtube.com/vi/$lastVideo->code/0.jpg";
+            $category->save();
+        }
         return redirect()->route('videos');
     }
 }

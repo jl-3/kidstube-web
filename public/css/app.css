@@ -5779,4 +5779,10 @@ button.close {
 span.glyphicon {
   font-family: 'Glyphicons Halflings'; }
 
+a.thumbnail {
+  background: white; }
+
+a.thumbnail:hover {
+  text-decoration: none; }
+
 /*# sourceMappingURL=app.css.map */

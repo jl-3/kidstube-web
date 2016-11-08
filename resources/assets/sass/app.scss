@@ -26,3 +26,10 @@
 span.glyphicon {
   font-family: 'Glyphicons Halflings';
 }
+
+a.thumbnail {
+  background:white;
+}
+a.thumbnail:hover {
+  text-decoration: none;
+}
