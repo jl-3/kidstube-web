@@ -39,7 +39,7 @@ class VideoController extends Controller
                     ->where('video_categories.category_id', '=', $cat);
             });
         }
-        $videos = $videos->orderBy('created_at', 'desc')->paginate(4);
+        $videos = $videos->orderBy('created_at', 'desc')->paginate(config('app.pagination'));
         $categories = Auth::user()->categories()->orderBy('name')->get();
         return view('videos', ['videos' => $videos, 'categories' => $categories, 'filter' => $cat]);
     }

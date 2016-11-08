@@ -16,7 +16,7 @@
                     <div class="panel-heading">Новое видео</div>
 
                     <div class="panel-body">
-                        <form action="{{ url('/video') }}" method="post">
+                        <form action="{{ url('/admin/video') }}" method="post">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <select class="form-control" name="category">
@@ -38,7 +38,7 @@
 
                 <div class="panel panel-warning">
                     <div class="panel-heading">
-                        <form id="filter-form" action="{{ url('/videos') }}" method="get" class="pull-right">
+                        <form id="filter-form" action="{{ url('/admin/videos') }}" method="get" class="pull-right">
                             <select id="filter-category" name="category">
                                 <option value="">- все категории -</option>
                                 @foreach($categories as $category)
@@ -68,7 +68,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <form class="form-inline" method="post"
-                                                  action="{{ url('/video/'.$video->id.'/addTo') }}">
+                                                  action="{{ url('/admin/video/'.$video->id.'/addTo') }}">
                                                 {{ csrf_field() }}
                                                 <table class="table table-hover">
                                                     @foreach($video->categories as $category)
@@ -101,7 +101,7 @@
                                     </div>
                                 </div>
                                 <div class="panel-footer">
-                                    <form class="form-inline" action="{{ url('/video/'.$video->id) }}" method="post">
+                                    <form class="form-inline" action="{{ url('/admin/video/'.$video->id) }}" method="post">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <button type="submit" class="btn btn-xs btn-danger pull-right">Удалить</button>

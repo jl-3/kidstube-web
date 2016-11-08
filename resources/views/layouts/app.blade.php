@@ -45,8 +45,8 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     @if (Auth::check())
-                        <li class="{{ $view_name == 'videos' ? 'active' : '' }}"><a href="{{ url('/videos') }}">Видео</a></li>
-                        <li class="{{ $view_name == 'categories' ? 'active': '' }}"><a href="{{ url('/categories') }}">Категории</a></li>
+                        <li class="{{ $view_name == 'videos' ? 'active' : '' }}"><a href="{{ route('videos') }}">Видео</a></li>
+                        <li class="{{ $view_name == 'categories' ? 'active': '' }}"><a href="{{ route('categories') }}">Категории</a></li>
                     @else
                         &nbsp;
                     @endif
@@ -56,7 +56,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Вход</a></li>
+                        <li><a href="{{ route('login') }}">Вход</a></li>
                         <li><a href="{{ url('/register') }}">Регистрация</a></li>
                     @else
                         <li class="dropdown">
@@ -67,7 +67,7 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <a href="{{ url('/logout') }}"
+                                    <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         Logout

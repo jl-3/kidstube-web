@@ -16,7 +16,7 @@
                     <div class="panel-heading">Новая категория</div>
 
                     <div class="panel-body">
-                        <form action="{{ url('/category') }}" method="post">
+                        <form action="{{ url('/admin/category') }}" method="post">
                             {{ csrf_field() }}
                             <div class="input-group">
                                 <input class="form-control" placeholder="Название" name="name" required>
@@ -35,7 +35,7 @@
                         @forelse($categories as $category)
                             <div class="row">
                                 <div class="col-xs-9 col-sm-10">
-                                    <form action="{{ url('/category/'.$category->id) }}" method="post">
+                                    <form action="{{ url('/admin/category/'.$category->id) }}" method="post">
                                         {{ method_field('PUT') }}
                                         {{ csrf_field() }}
                                         <div class="panel panel-default">
@@ -43,17 +43,17 @@
                                                 <input class="form-control" name="name" placeholder="Название"
                                                        value="{{ $category->name }}">
                                                 <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-default">
-                                                <span class="glyphicon glyphicon-pencil hidden-md hidden-lg"></span>
-                                                <span class="visible-md-inline-block visible-lg-inline-block">Изменить</span>
-                                            </button>
-                                        </span>
+                                                    <button type="submit" class="btn btn-default">
+                                                        <span class="glyphicon glyphicon-pencil hidden-md hidden-lg"></span>
+                                                        <span class="visible-md-inline-block visible-lg-inline-block">Изменить</span>
+                                                    </button>
+                                                </span>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="col-xs-3 col-sm-2">
-                                    <form action="{{ url('/category/'.$category->id) }}" method="post">
+                                    <form action="{{ url('/admin/category/'.$category->id) }}" method="post">
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
                                         <button type="submit" class="btn btn-danger">
