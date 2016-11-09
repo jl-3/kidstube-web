@@ -2,36 +2,27 @@
 
 @section('content')
     <div class="container" xmlns="http://www.w3.org/1999/html">
-        <h3>Категории</h3>
-        <div class="row">
-            @forelse($categories as $category)
-                <div class="col-sm-3">
-                    <a class="thumbnail @if($filter == $category->id) active @endif" href="{{ url('/?category='.$category->id) }}">
-                        <img src="{{ $category->thumbnail }}" alt="{{ $category->name }}">
-                        <div class="caption">{{ $category->name }}</div>
-                    </a>
-                </div>
-            @empty
-            @endforelse
-        </div>
+        <ol class="breadcrumb">
+            <li><a href="{{ route('childHome') }}">Главная</a></li>
+            <li class="active">{{ $category->name }}</li>
+        </ol>
 
-        <h3>Видео</h3>
         <div class="row">
             @forelse($videos as $video)
                 <div class="col-sm-3">
-                    <a class="thumbnail" href="{{ url('/play/'.$video->id) }}">
+                    <a class="thumbnail" href="{{ route('childVideoPlayer', ['category' => $category->id, 'video' => $video->id]) }}">
                         <img src="http://img.youtube.com/vi/{{ $video->code }}/0.jpg" width="100%" height="240">
                     </a>
                 </div>
             @empty
                 <div class="alert alert-success">
-                    Пока что нет ни одного разрешённого видео.
+                    В этой категории нет ни одного разрешённого видео.
                 </div>
             @endforelse
         </div>
 
         <div class="panel-footer panel-footer-pagination">
-            {{ $videos->appends(['category' => $filter])->links() }}
+            {{ $videos->links() }}
         </div>
     </div>
 @endsection

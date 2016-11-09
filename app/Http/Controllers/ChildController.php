@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class ChildController extends Controller
 {
     /**
-     * Show the list of available videos
+     * Show the list of video categories
      *
      * @param Request $request
      * @return \Illuminate\Http\Response
@@ -27,32 +27,41 @@ class ChildController extends Controller
             }
         }
 
-        // extract needed videos and categories
-        $videos = Video::orderBy('created_at', 'desc');
-        $cat = $request->input('category');
-        if ($request->has('category')) {
-            $videos->whereExists(function($query) use ($cat) {
-                $query
-                    ->select(DB::raw(1))
-                    ->from('video_categories')
-                    ->whereRaw('video_categories.video_id = videos.id')
-                    ->where('video_categories.category_id', '=', $cat);
-            });
-        }
-        $videos = $videos->paginate(config('app.pagination'));
+        // display categories
         $categories = Category::whereNotNull('thumbnail')->orderBy('name')->get();
-        return view('childVideoList', ['videos' => $videos, 'categories' => $categories, 'filter' => $cat]);
+        return view('childVideoCategories', ['categories' => $categories]);
+    }
+
+    /**
+     * Show the list of videos in the category
+     *
+     * @param Request $request
+     * @param Category $category
+     * @return \Illuminate\Http\Response
+     */
+    public function videoList(Request $request, Category $category)
+    {
+        $videos = Video::whereExists(function($query) use ($category) {
+            $query
+                ->select(DB::raw(1))
+                ->from('video_categories')
+                ->whereRaw('video_categories.video_id = videos.id')
+                ->where('video_categories.category_id', '=', $category->id);
+        })->orderBy('created_at', 'desc')->paginate(config('app.pagination'));
+        $categories = Category::whereNotNull('thumbnail')->orderBy('name')->get();
+        return view('childVideoList', ['videos' => $videos, 'categories' => $categories, 'category' => $category]);
     }
 
     /**
      * Show the video player
      *
      * @param Request $request
+     * @param Category $category
      * @param Video $video
      * @return \Illuminate\Http\Response
      */
-    public function player(Request $request, Video $video)
+    public function player(Request $request, Category $category, Video $video)
     {
-        return view('childVideoPlayer', ['video' => $video]);
+        return view('childVideoPlayer', ['video' => $video, 'category' => $category]);
     }
 }

@@ -2,6 +2,12 @@
 
 @section('content')
     <div class="container" xmlns="http://www.w3.org/1999/html">
+        <ol class="breadcrumb">
+            <li><a href="{{ route('childHome') }}">Главная</a></li>
+            <li><a href="{{ route('childVideoList', ['category' => $category->id]) }}">{{ $category->name }}</a></li>
+            <li class="active">Видео #{{ $video->id }}</li>
+        </ol>
+
         <div class="row">
             <div class="col-sm-12">
                 <iframe type="text/html" width="100%" height="640" frameborder="0" allowfullscreen
