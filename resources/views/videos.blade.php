@@ -58,11 +58,11 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <a href="https://www.youtube.com/watch?v={{ $video->code }}" target="_blank">
-                                                <img src="http://img.youtube.com/vi/{{ $video->code }}/0.jpg" width="100%" height="240">
+                                                <img src="https://img.youtube.com/vi/{{ $video->code }}/0.jpg" width="100%" height="240">
                                             </a>
                                             <!--
                                             <iframe type="text/html" width="100%" height="240" frameborder="0" allowfullscreen
-                                                    src="http://www.youtube.com/embed/{{ $video->code }}?autoplay=0&playsinline=1&rel=0&showinfo=0&origin=http://admin.kidstube.space/"
+                                                    src="https://www.youtube.com/embed/{{ $video->code }}?autoplay=0&playsinline=1&rel=0&showinfo=0&origin={{ config('app.url') }}"
                                             ></iframe>
                                             -->
                                         </div>

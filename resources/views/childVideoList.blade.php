@@ -11,7 +11,7 @@
             @forelse($videos as $video)
                 <div class="col-sm-3">
                     <a class="thumbnail" href="{{ route('childVideoPlayer', ['category' => $category->id, 'video' => $video->id]) }}">
-                        <img src="http://img.youtube.com/vi/{{ $video->code }}/0.jpg" width="100%" height="240">
+                        <img src="https://img.youtube.com/vi/{{ $video->code }}/0.jpg" width="100%" height="240">
                     </a>
                 </div>
             @empty
