@@ -7,8 +7,8 @@
 */
 
 Route::get('/', 'KidController@index')->name('kid-home');
-Route::get('/category{category}', 'KidController@category')->name('kid-category');
-Route::get('/category{category}/{video}', 'KidController@video')->name('kid-video');
+Route::get('/watch/{category}', 'KidController@category')->name('kid-category');
+Route::get('/watch/{category}/{video}', 'KidController@video')->name('kid-video');
 
 Auth::routes();
 

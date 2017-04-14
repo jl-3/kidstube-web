@@ -29,9 +29,20 @@ class Category extends Model
      * Returns all the videos in the specified category
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @deprecated Use "videoList" property instead.
      */
     public function videos()
     {
         return $this->belongsToMany(Video::class, 'video_categories');
+    }
+
+    /**
+     * Returns all the videos in the specified category
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function videoList()
+    {
+        return $this->hasMany(Video::class);
     }
 }

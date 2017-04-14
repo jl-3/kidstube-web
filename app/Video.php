@@ -12,7 +12,7 @@ class Video extends Model
      * @var array
      */
     protected $fillable = [
-        'url', 'code', 'user_id'
+        'url', 'code', 'user_id', 'category_id',
     ];
 
     /**
@@ -26,9 +26,20 @@ class Video extends Model
     }
 
     /**
+     * Returns the category where the video belongs
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    /**
      * Returns all the categories of the specified video
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @deprecated Use "category" property instead.
      */
     public function categories()
     {
