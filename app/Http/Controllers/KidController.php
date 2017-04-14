@@ -17,7 +17,7 @@ class KidController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = Category::orderBy('updated_at', 'desc')->get();
+        $categories = Category::whereNotNull('thumbnail')->orderBy('updated_at', 'desc')->get();
         return view('kid-home', ['categories' => $categories]);
     }
 
@@ -30,9 +30,8 @@ class KidController extends Controller
      */
     public function category(Request $request, Category $category)
     {
-        $videos = $category->videos()->orderBy('created_at', 'desc')->paginate(config('app.pagination'));
-        $categories = Category::whereNotNull('thumbnail')->orderBy('name')->get();
-        return view('kid-category', ['videos' => $videos, 'categories' => $categories, 'category' => $category]);
+        $videos = $category->videoList()->orderBy('updated_at', 'desc')->paginate(config('app.pagination'));
+        return view('kid-category', ['videos' => $videos, 'category' => $category]);
     }
 
     /**

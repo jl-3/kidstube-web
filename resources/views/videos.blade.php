@@ -16,13 +16,15 @@
                     <div class="panel-heading">Новое видео</div>
 
                     <div class="panel-body">
-                        <form action="{{ url('/admin/video') }}" method="post">
+                        <form action="{{ route('videos.store') }}" method="post">
                             {{ csrf_field() }}
                             <div class="form-group">
-                                <select class="form-control" name="category">
+                                <select class="form-control" name="category" required>
                                     <option value="">- укажите категорию -</option>
                                     @foreach($categories as $category)
-                                        <option value="{{ $category->id }}" @if ($category->id == $filter) selected @endif>{{ $category->name }}</option>
+                                        <option value="{{ $category->id }}" @if ($category->id == $filter) selected @endif>
+                                            {{ $category->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -38,11 +40,11 @@
 
                 <div class="panel panel-warning">
                     <div class="panel-heading">
-                        <form id="filter-form" action="{{ url('/admin/videos') }}" method="get" class="pull-right">
+                        <form id="filter-form" action="{{ route('videos.index') }}" method="get" class="pull-right">
                             <select id="filter-category" name="category">
                                 <option value="">- все категории -</option>
                                 @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" @if($filter == $category->id) selected @endif>
+                                    <option value="{{ $category->id }}" @if($category->id == $filter) selected @endif>
                                         {{ $category->name }}
                                     </option>
                                 @endforeach
@@ -52,7 +54,7 @@
                     </div>
 
                     <div class="panel-body">
-                        @forelse($videos as $video)
+                        @forelse ($videos as $video)
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                     <div class="row">
@@ -60,52 +62,37 @@
                                             <a href="https://www.youtube.com/watch?v={{ $video->code }}" target="_blank">
                                                 <img src="https://img.youtube.com/vi/{{ $video->code }}/0.jpg" width="100%" height="240">
                                             </a>
-                                            <!--
-                                            <iframe type="text/html" width="100%" height="240" frameborder="0" allowfullscreen
-                                                    src="https://www.youtube.com/embed/{{ $video->code }}?autoplay=0&playsinline=1&rel=0&showinfo=0&origin={{ config('app.url') }}"
-                                            ></iframe>
-                                            -->
                                         </div>
                                         <div class="col-sm-6">
-                                            <form class="form-inline" method="post"
-                                                  action="{{ url('/admin/video/'.$video->id.'/addTo') }}">
+                                            <form class="form-inline" method="post" action="{{ route('videos.update', ['video' => $video->id]) }}">
                                                 {{ csrf_field() }}
-                                                <table class="table table-hover">
-                                                    @foreach($video->categories as $category)
-                                                        <tr>
-                                                            <td>{{ $category->name }}</td>
-                                                            <td>
-                                                                <a class="btn btn-sm btn-warning"
-                                                                   href="{{ url('/admin/video/'.$video->id.'/removeFrom/'.$category->id) }}"
-                                                                >Убрать</a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                    <tr>
-                                                        <td>
-                                                            <select class="form-control input-sm" name="category">
-                                                                @foreach($categories as $category)
-                                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <button type="submit" class="btn btn-sm btn-default">
-                                                                Добавить
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                </table>
+                                                {{ method_field('PUT') }}
+
+                                                <div class="input-group">
+                                                    <select class="form-control" name="category_id" required>
+                                                        <option value="">- укажите категорию -</option>
+                                                        @foreach($categories as $category)
+                                                            <option value="{{ $category->id }}" @if ($category->id == $video->category_id) selected @endif>
+                                                                {{ $category->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    <div class="input-group-btn">
+                                                        <button type="submit" class="btn btn-default" title="Изменить категорию">
+                                                            <span class="glyphicon glyphicon-pencil"></span>
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="panel-footer">
-                                    <form class="form-inline" action="{{ url('/admin/video/'.$video->id) }}" method="post">
+                                    <form class="form-inline" action="{{ route('videos.destroy', ['video' => $video->id]) }}" method="post">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <button type="submit" class="btn btn-xs btn-danger pull-right">Удалить</button>
-                                        <span>{{ $video->created_at }}</span>
+                                        <span>{{ $video->updated_at }}</span>
                                     </form>
                                 </div>
                             </div>

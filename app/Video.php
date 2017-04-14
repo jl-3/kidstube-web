@@ -12,7 +12,7 @@ class Video extends Model
      * @var array
      */
     protected $fillable = [
-        'url', 'code', 'user_id'
+        'url', 'code', 'user_id', 'category_id',
     ];
 
     /**
@@ -26,12 +26,33 @@ class Video extends Model
     }
 
     /**
+     * Returns the category where the video belongs
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    /**
      * Returns all the categories of the specified video
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @deprecated Use "category" property instead.
      */
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'video_categories');
+    }
+
+    /**
+     * Returns the URL to the video thumbnail image
+     *
+     * @return string
+     */
+    public function getThumbnailUrl()
+    {
+        return 'https://img.youtube.com/vi/'.$this->code.'/0.jpg';
     }
 }

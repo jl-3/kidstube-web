@@ -20,7 +20,7 @@ class ApiController extends Controller
 
     public function videos(Category $category)
     {
-        return $category->videos()->orderBy('created_at', 'desc')->get();
+        return $category->videoList()->orderBy('updated_at', 'desc')->get();
     }
 
     public function video(Category $category, Video $video)

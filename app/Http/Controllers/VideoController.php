@@ -6,7 +6,6 @@ use App\Category;
 use App\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class VideoController extends Controller
 {
@@ -21,7 +20,7 @@ class VideoController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the list of all the videos of current user.
      *
      * @param Request $request
      * @return \Illuminate\Http\Response
@@ -29,19 +28,11 @@ class VideoController extends Controller
     public function index(Request $request)
     {
         $videos = Auth::user()->videos();
-        $cat = $request->input('category');
-        if ($request->has('category')) {
-            $videos->whereExists(function($query) use ($cat) {
-                $query
-                    ->select(DB::raw(1))
-                    ->from('video_categories')
-                    ->whereRaw('video_categories.video_id = videos.id')
-                    ->where('video_categories.category_id', '=', $cat);
-            });
-        }
-        $videos = $videos->orderBy('created_at', 'desc')->paginate(config('app.pagination'));
+        $category_id = $request->input('category');
+        if ($category_id) $videos->where('category_id', $category_id);
+        $videos = $videos->orderBy('updated_at', 'desc')->paginate(config('app.pagination'));
         $categories = Auth::user()->categories()->orderBy('name')->get();
-        return view('videos', ['videos' => $videos, 'categories' => $categories, 'filter' => $cat]);
+        return view('videos', ['videos' => $videos, 'categories' => $categories, 'filter' => $category_id]);
     }
 
     /**
@@ -50,7 +41,7 @@ class VideoController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function add(Request $request)
+    public function store(Request $request)
     {
         $this->validate($request, [
             'url' => ['required', 'url', 'unique:videos', 'regex:/(youtube.com\/.*v=|youtu.be\/)/'],
@@ -59,7 +50,6 @@ class VideoController extends Controller
 
         $url = $request->input('url');
 
-        $code = '';
         if (preg_match('/youtube.com\/.*v=([a-zA-Z0-9\-_]+)/', $url, $matches)) $code = $matches[1];
         else if (preg_match('/youtu.be\/([a-zA-Z0-9\-_]+)/', $url, $matches)) $code = $matches[1];
         else die('Incorrect video code');
@@ -72,12 +62,11 @@ class VideoController extends Controller
 
         if ($request->has('category')) {
             $category = Category::findOrFail($request->input('category'));
-            $category->videos()->attach($video);
-            $category->thumbnail = "http://img.youtube.com/vi/$video->code/0.jpg";
-            $category->save();
+            $category->videoList()->save($video);
+            $category->updateThumbnail();
         }
 
-        return redirect()->to('/admin/videos?category='.$request->input('category'));
+        return redirect()->route('videos.index', ['category' => $request->input('category')]);
     }
 
     /**
@@ -87,44 +76,28 @@ class VideoController extends Controller
      * @param Video $video
      * @return \Illuminate\Http\Response
      */
-    public function remove(Request $request, Video $video)
+    public function destroy(Request $request, Video $video)
     {
-        $video->delete();
-        return redirect()->route('videos');
+        $cat_id = $video->category_id;
+        if ($video->author->id == Auth::id()) $video->delete();
+        Category::find($cat_id)->updateThumbnail();
+        return redirect()->route('videos.index', ['category' => $cat_id]);
     }
 
     /**
-     * Add the video to the category.
+     * Update video properties (actually update video category).
      *
      * @param Request $request
      * @param Video $video
      * @return \Illuminate\Http\Response
      */
-    public function addToCategory(Request $request, Video $video)
+    public function update(Request $request, Video $video)
     {
-        $category = Category::findOrFail($request->input('category'));
-        $video->categories()->attach($category->id);
-        $category->thumbnail = "http://img.youtube.com/vi/$video->code/0.jpg";
-        $category->save();
-        return redirect()->route('videos');
-    }
-
-    /**
-     * Remove the video from the category.
-     *
-     * @param Request $request
-     * @param Video $video
-     * @param Category $category
-     * @return \Illuminate\Http\Response
-     */
-    public function removeFromCategory(Request $request, Video $video, Category $category)
-    {
-        $video->categories()->detach($category->id);
-        $lastVideo = $category->videos()->orderBy('id', 'desc')->first();
-        if ($lastVideo != null) {
-            $category->thumbnail = "http://img.youtube.com/vi/$lastVideo->code/0.jpg";
-            $category->save();
-        }
-        return redirect()->route('videos');
+        $oldCategory = $video->category;
+        $category = Category::findOrFail($request->input('category_id'));
+        $category->videoList()->save($video);
+        $category->updateThumbnail();
+        if ($oldCategory) $oldCategory->updateThumbnail();
+        return redirect()->route('videos.index', ['category' => $category->id]);
     }
 }

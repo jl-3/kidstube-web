@@ -35,16 +35,16 @@ class CategoriesController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function add(Request $request)
+    public function store(Request $request)
     {
         $this->validate($request, ['name' => 'required|unique:categories']);
 
         Category::create([
             'name' => $request->input('name'),
-            'user_id' => Auth::user()->id,
+            'user_id' => Auth::id(),
         ]);
 
-        return redirect()->route('categories');
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -54,14 +54,16 @@ class CategoriesController extends Controller
      * @param Category $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, Category $category)
+    public function update(Request $request, Category $category)
     {
         $this->validate($request, ['name' => 'required|unique:categories']);
 
-        $category->name = $request->input('name');
-        $category->save();
+        if ($category->author->id == Auth::id()) {
+            $category->name = $request->input('name');
+            $category->save();
+        }
 
-        return redirect()->route('categories');
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -71,9 +73,9 @@ class CategoriesController extends Controller
      * @param Category $category
      * @return \Illuminate\Http\Response
      */
-    public function remove(Request $request, Category $category)
+    public function destroy(Request $request, Category $category)
     {
         $category->delete();
-        return redirect()->route('categories');
+        return redirect()->route('categories.index');
     }
 }
