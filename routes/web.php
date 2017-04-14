@@ -20,14 +20,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
             return redirect()->route('login');
     });
 
-    Route::get('/videos', 'VideoController@index')->name('videos');
-    Route::post('/video', 'VideoController@add');
-    Route::delete('/video/{video}', 'VideoController@remove');
-    Route::post('/video/{video}/addTo', 'VideoController@addToCategory');
-    Route::get('/video/{video}/removeFrom/{category}', 'VideoController@removeFromCategory');
-
-    Route::get('/categories', 'CategoriesController@index')->name('categories');
-    Route::post('/category', 'CategoriesController@add');
-    Route::put('/category/{category}', 'CategoriesController@edit');
-    Route::delete('/category/{category}', 'CategoriesController@remove');
+    Route::resource('videos', 'VideoController');
+    Route::resource('categories', 'CategoriesController');
 });

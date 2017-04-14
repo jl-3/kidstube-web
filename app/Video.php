@@ -45,4 +45,14 @@ class Video extends Model
     {
         return $this->belongsToMany(Category::class, 'video_categories');
     }
+
+    /**
+     * Returns the URL to the video thumbnail image
+     *
+     * @return string
+     */
+    public function getThumbnailUrl()
+    {
+        return 'https://img.youtube.com/vi/'.$this->code.'/0.jpg';
+    }
 }

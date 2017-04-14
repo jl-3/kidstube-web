@@ -45,8 +45,8 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     @if (Auth::check())
-                        <li class="{{ $view_name == 'videos' ? 'active' : '' }}"><a href="{{ route('videos') }}">Видео</a></li>
-                        <li class="{{ $view_name == 'categories' ? 'active': '' }}"><a href="{{ route('categories') }}">Категории</a></li>
+                        <li class="{{ $view_name == 'videos' ? 'active' : '' }}"><a href="{{ route('videos.index') }}">Видео</a></li>
+                        <li class="{{ $view_name == 'categories' ? 'active': '' }}"><a href="{{ route('categories.index') }}">Категории</a></li>
                     @else
                         &nbsp;
                     @endif
@@ -57,7 +57,7 @@
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ route('login') }}">Вход</a></li>
-                        <li><a href="{{ url('/register') }}">Регистрация</a></li>
+                        <li><a href="{{ route('register') }}">Регистрация</a></li>
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
