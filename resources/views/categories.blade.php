@@ -16,7 +16,7 @@
                     <div class="panel-heading">Новая категория</div>
 
                     <div class="panel-body">
-                        <form action="{{ url('/admin/category') }}" method="post">
+                        <form action="{{ route('categories.store') }}" method="post">
                             {{ csrf_field() }}
                             <div class="input-group">
                                 <input class="form-control" placeholder="Название" name="name" required>
@@ -32,16 +32,16 @@
                     <div class="panel-heading">Имеющиеся категории</div>
 
                     <div class="panel-body">
-                        @forelse($categories as $category)
+                        @forelse ($categories as $category)
                             <div class="row">
                                 <div class="col-xs-9 col-sm-10">
-                                    <form action="{{ url('/admin/category/'.$category->id) }}" method="post">
+                                    <form action="{{ route('categories.update', ['category' => $category->id]) }}" method="post">
                                         {{ method_field('PUT') }}
                                         {{ csrf_field() }}
                                         <div class="panel panel-default">
                                             <div class="input-group">
                                                 <input class="form-control" name="name" placeholder="Название"
-                                                       value="{{ $category->name }}">
+                                                       value="{{ $category->name }}" required>
                                                 <span class="input-group-btn">
                                                     <button type="submit" class="btn btn-default">
                                                         <span class="glyphicon glyphicon-pencil hidden-md hidden-lg"></span>
@@ -53,7 +53,7 @@
                                     </form>
                                 </div>
                                 <div class="col-xs-3 col-sm-2">
-                                    <form action="{{ url('/admin/category/'.$category->id) }}" method="post">
+                                    <form action="{{ route('categories.destroy', ['category' => $category->id]) }}" method="post">
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
                                         <button type="submit" class="btn btn-danger">
