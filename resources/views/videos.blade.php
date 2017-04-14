@@ -83,35 +83,6 @@
                                                         </button>
                                                     </div>
                                                 </div>
-
-{{--
-                                                <table class="table table-hover">
-                                                    @foreach($video->categories as $category)
-                                                        <tr>
-                                                            <td>{{ $category->name }}</td>
-                                                            <td>
-                                                                <a class="btn btn-sm btn-warning"
-                                                                   href="{{ url('/admin/video/'.$video->id.'/removeFrom/'.$category->id) }}"
-                                                                >Убрать</a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                    <tr>
-                                                        <td>
-                                                            <select class="form-control input-sm" name="category">
-                                                                @foreach($categories as $category)
-                                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <button type="submit" class="btn btn-sm btn-default">
-                                                                Добавить
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                </table>
---}}
                                             </form>
                                         </div>
                                     </div>
