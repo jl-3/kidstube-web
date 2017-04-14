@@ -77,7 +77,7 @@ class VideoController extends Controller
             $category->save();
         }
 
-        return redirect()->route('videos');
+        return redirect()->to('/admin/videos?category='.$request->input('category'));
     }
 
     /**

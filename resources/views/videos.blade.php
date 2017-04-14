@@ -20,9 +20,9 @@
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <select class="form-control" name="category">
-                                    <option value="">укажите категорию (не обязательно)</option>
+                                    <option value="">- укажите категорию -</option>
                                     @foreach($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        <option value="{{ $category->id }}" @if ($category->id == $filter) selected @endif>{{ $category->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

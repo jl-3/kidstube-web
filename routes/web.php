@@ -6,9 +6,9 @@
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', 'ChildController@index')->name('childHome');
-Route::get('/category{category}', 'ChildController@videoList')->name('childVideoList');
-Route::get('/category{category}/{video}', 'ChildController@player')->name('childVideoPlayer');
+Route::get('/', 'KidController@index')->name('kid-home');
+Route::get('/category{category}', 'KidController@category')->name('kid-category');
+Route::get('/category{category}/{video}', 'KidController@video')->name('kid-video');
 
 Auth::routes();
 

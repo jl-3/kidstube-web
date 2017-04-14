@@ -9,7 +9,7 @@
         <div class="row">
             @forelse($categories as $category)
                 <div class="col-sm-3">
-                    <a class="thumbnail" href="{{ route('childVideoList', ['category' => $category->id]) }}">
+                    <a class="thumbnail" href="{{ route('kid-category', ['category' => $category->id]) }}">
                         <img src="{{ $category->thumbnail }}" alt="{{ $category->name }}">
                         <div class="caption">{{ $category->name }}</div>
                     </a>
