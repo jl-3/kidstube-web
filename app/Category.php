@@ -45,4 +45,16 @@ class Category extends Model
     {
         return $this->hasMany(Video::class);
     }
+
+    /**
+     * Updates category thumbnail for it to match the last video that has been added to it.
+     */
+    public function updateThumbnail()
+    {
+        $lastVideo = $this->videoList()->orderBy('updated_at', 'desc')->first();
+        if ($lastVideo) {
+            $this->thumbnail = $lastVideo->getThumbnailUrl();
+            $this->save();
+        }
+    }
 }

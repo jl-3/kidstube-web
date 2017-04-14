@@ -63,8 +63,7 @@ class VideoController extends Controller
         if ($request->has('category')) {
             $category = Category::findOrFail($request->input('category'));
             $category->videoList()->save($video);
-            $category->thumbnail = $video->getThumbnailUrl();
-            $category->save();
+            $category->updateThumbnail();
         }
 
         return redirect()->route('videos.index', ['category' => $request->input('category')]);
@@ -81,6 +80,7 @@ class VideoController extends Controller
     {
         $cat_id = $video->category_id;
         if ($video->author->id == Auth::id()) $video->delete();
+        Category::find($cat_id)->updateThumbnail();
         return redirect()->route('videos.index', ['category' => $cat_id]);
     }
 
@@ -93,10 +93,11 @@ class VideoController extends Controller
      */
     public function update(Request $request, Video $video)
     {
-        $category = Category::findOrFail($request->input('category'));
-        $video->category()->associate($category);
-        $category->thumbnail = "https://img.youtube.com/vi/$video->code/0.jpg";
-        $category->save();
+        $oldCategory = $video->category;
+        $category = Category::findOrFail($request->input('category_id'));
+        $category->videoList()->save($video);
+        $category->updateThumbnail();
+        if ($oldCategory) $oldCategory->updateThumbnail();
         return redirect()->route('videos.index', ['category' => $category->id]);
     }
 }

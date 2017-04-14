@@ -64,9 +64,26 @@
                                             </a>
                                         </div>
                                         <div class="col-sm-6">
-                                            <form class="form-inline" method="post"
-                                                  action="{{ url('/admin/video/'.$video->id.'/addTo') }}">
+                                            <form class="form-inline" method="post" action="{{ route('videos.update', ['video' => $video->id]) }}">
                                                 {{ csrf_field() }}
+                                                {{ method_field('PUT') }}
+
+                                                <div class="input-group">
+                                                    <select class="form-control" name="category_id" required>
+                                                        <option value="">- укажите категорию -</option>
+                                                        @foreach($categories as $category)
+                                                            <option value="{{ $category->id }}" @if ($category->id == $video->category_id) selected @endif>
+                                                                {{ $category->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    <div class="input-group-btn">
+                                                        <button type="submit" class="btn btn-default" title="Изменить категорию">
+                                                            <span class="glyphicon glyphicon-pencil"></span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
 {{--
                                                 <table class="table table-hover">
                                                     @foreach($video->categories as $category)
