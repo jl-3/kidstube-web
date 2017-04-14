@@ -15,7 +15,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
     Route::get('/', function() {
         if (Auth::check())
-            return redirect()->route('videos');
+            return redirect()->route('videos.index');
         else
             return redirect()->route('login');
     });
