@@ -21,7 +21,13 @@ class DownloadYoutubeVideo implements ShouldQueue
      * URL of the video on YouTube
      * @var string
      */
-    private $videoURL;
+    public $videoURL;
+
+    /**
+     * Indicates the success of the downloading/storing process.
+     * @var bool
+     */
+    public $success;
 
     /**
      * Create a new job instance.
@@ -40,6 +46,7 @@ class DownloadYoutubeVideo implements ShouldQueue
      */
     public function handle()
     {
+        $this->success = false;
         $parser = new YouTubeLinkParser($this->videoURL);
         if (!$parser->url) {
             Log::info('Unable to download video from '.$this->videoURL);
@@ -56,6 +63,7 @@ class DownloadYoutubeVideo implements ShouldQueue
                 $video->url = Storage::disk('public')->url($localPath);
                 $video->save();
                 Log::info('Replaced video URL in the database from '.$this->videoURL.' to '.$video->url);
+                $this->success = true;
             }
         }
     }
