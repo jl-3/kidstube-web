@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Console\Commands\VideosDownload;
 use App\Jobs\DownloadYoutubeVideo;
 use App\Video;
 use Illuminate\Http\Request;
@@ -33,7 +34,20 @@ class VideoController extends Controller
         if ($category_id) $videos->where('category_id', $category_id);
         $videos = $videos->orderBy('updated_at', 'desc')->paginate(config('app.pagination'));
         $categories = Auth::user()->categories()->orderBy('name')->get();
-        return view('videos', ['videos' => $videos, 'categories' => $categories, 'filter' => $category_id]);
+
+        $size = Video::where('type', 1)->sum('size');
+        $size_str = $size.' Б';
+        if ($size > 1024) { $size = intval($size * 10 / 1024) / 10; $size_str = $size.' КБ'; }
+        if ($size > 1024) { $size = intval($size * 10 / 1024) / 10; $size_str = $size.' МБ'; }
+        if ($size > 1024) { $size = intval($size * 10 / 1024) / 10; $size_str = $size.' ГБ'; }
+
+        return view('videos', [
+            'videos' => $videos,
+            'categories' => $categories,
+            'filter' => $category_id,
+            'local_size' => $size_str,
+            'local_count' => Video::where('type', 1)->count(),
+        ]);
     }
 
     /**

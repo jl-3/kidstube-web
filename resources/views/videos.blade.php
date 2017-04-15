@@ -38,6 +38,10 @@
                     </div>
                 </div>
 
+                <div class="alert alert-danger">
+                    Скачанные локально {{ $local_count }} видео в совокупности весят на данный момент {{ $local_size }}.
+                </div>
+
                 <div class="panel panel-warning">
                     <div class="panel-heading">
                         <form id="filter-form" action="{{ route('videos.index') }}" method="get" class="pull-right">
