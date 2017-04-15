@@ -1,9 +1,17 @@
 <template>
     <div>
+        <iframe type="text/html" width="100%" height="640" frameborder="0" allowfullscreen
+                v-bind:src="video_url"
+                v-bind:id="component_id"
+                v-on:load="video_loaded"
+        ></iframe>
+
+        <!--
         <video width="100%" height="640" controls autoplay>
             <source v-bind:src="url" type="video/mp4">
             Этот браузер не поддерживает тег HTML5 video.
         </video>
+        -->
     </div>
 </template>
 
