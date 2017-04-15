@@ -10,7 +10,9 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <youtube url="{{ $mp4 }}" code="{{ $video->code }}" origin="{{ config('app.url') }}"></youtube>
+                <youtube url="{{ $video->url }}" code="{{ $video->code }}"
+                         type="{{ $video->type }}" origin="{{ config('app.url') }}"
+                ></youtube>
             </div>
         </div>
     </div>

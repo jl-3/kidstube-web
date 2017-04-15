@@ -12,7 +12,7 @@ class Video extends Model
      * @var array
      */
     protected $fillable = [
-        'url', 'code', 'user_id', 'category_id',
+        'url', 'code', 'user_id', 'category_id', 'type', 'size',
     ];
 
     /**

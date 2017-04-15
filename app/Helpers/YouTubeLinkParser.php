@@ -12,7 +12,7 @@ class YouTubeLinkParser
     public function __construct($youtubeUrl)
     {
         $_orginalLink = $youtubeUrl;
-        $_videoId = $this->extractYoutubeId($_orginalLink);
+        $this->id = $_videoId = $this->extractYoutubeId($_orginalLink);
 
         if (!$_videoId) {
             $this->error = 'Invalid link';
@@ -28,11 +28,29 @@ class YouTubeLinkParser
         }
     }
 
+    /**
+     * The error message, if any error occured.
+     * @var string
+     */
     public $error;
 
+    /**
+     * The data returned by YouTube "get_video_info" request.
+     * @var string
+     */
     public $data;
 
+    /**
+     * URL of the video in mp4 format
+     * @var string
+     */
     public $url;
+
+    /**
+     * ID of the video on YouTube
+     * @var string
+     */
+    public $id;
 
     private function extractYoutubeId($link)
     {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Jobs\DownloadYoutubeVideo;
 use App\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -65,6 +66,8 @@ class VideoController extends Controller
             $category->videoList()->save($video);
             $category->updateThumbnail();
         }
+
+        dispatch(new DownloadYoutubeVideo($url));
 
         return redirect()->route('videos.index', ['category' => $request->input('category')]);
     }
