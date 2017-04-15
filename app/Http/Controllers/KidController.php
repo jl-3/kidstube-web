@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Helpers\YouTubeLinkParser;
 use App\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class KidController extends Controller
 {
@@ -44,6 +46,7 @@ class KidController extends Controller
      */
     public function video(Request $request, Category $category, Video $video)
     {
-        return view('kid-video', ['video' => $video, 'category' => $category]);
+        $parser = new YouTubeLinkParser($video->url);
+        return view('kid-video', ['video' => $video, 'mp4' => $parser->url, 'category' => $category]);
     }
 }
